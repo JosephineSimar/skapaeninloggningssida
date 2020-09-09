@@ -15,7 +15,7 @@ function landingPage() { //funktion som skapar startsida med inloggningsformulä
     inpName.setAttribute("id", "inpName");
     inpName.setAttribute("placeholder", "Namn");
     inpPassword.setAttribute("type", "password");
-    //inpPassword.setAttribute("id", "inpPassword");
+    inpPassword.setAttribute("id", "inpPassword");
     inpPassword.setAttribute("placeholder", "Lösenord");
     btnLogin.setAttribute("id", "btnLogin");
     btnLogin.innerText = "Logga in";
@@ -26,14 +26,12 @@ function landingPage() { //funktion som skapar startsida med inloggningsformulä
 }
 
 function lsCheck() { //funktion som körs när startsidan laddar som kollar inlogg i localStorage, om det sparade inlogget är rätt skickas användaren direkt till välkomstsidan
-    console.log("check");
     if (localStorage.name===correctName && localStorage.password===correctPassword){
         welcomePage();
     }
 }
 
 function welcomePage() { //funktion som visar välkomstsidan
-    console.log("välkommen");
     document.getElementById("content").innerHTML=""; //innehållet i diven "content" töms för att sedan fyllas på på nytt
     var rubrik=document.createElement("h2");
     var btnLogout=document.createElement("button"); //logga ut-knapp som leder tillbaka till startsidan
@@ -46,7 +44,6 @@ function welcomePage() { //funktion som visar välkomstsidan
 }
 
 function wrongPage() { //funktion som visar felinloggsidan
-    console.log("felsida");
     document.getElementById("content").innerHTML=""; //innehållet i diven "content" töms för att sedan fyllas på på nytt
     var rubrik=document.createElement("h2");
     var btnTryAgain=document.createElement("button");
@@ -62,21 +59,16 @@ function login() { //funktion som testar namn+lösen
     var inpName = document.getElementById("inpName").value;
     var inpPassword = document.getElementById("inpPassword").value;
     if (inpName===correctName && inpPassword===correctPassword){ //användaren skickas till välkomstsidan
-        console.log("rätt inlogg");
         localStorage.setItem("name", inpName); //inloggad användare sparas i localStorage (sparas bara om inlogget är rätt)
         localStorage.setItem("password", inpPassword);
-        console.log(inpName, "och", inpPassword);
-        console.log(localStorage.name, localStorage.password);
         welcomePage();
     }
     else { //användaren skickas till fel-inlogg-sidan
-        console.log("fel inlogg");
         wrongPage();
     }
 }
 
 function logout(){ //funktion som skickar tillbaka användaren till startsidan och rensar localstorage
-    console.log("loggar ut");
     localStorage.clear();
     landingPage();
 }

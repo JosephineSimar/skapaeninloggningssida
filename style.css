@@ -1,0 +1,27 @@
+
+h1 {
+    color:rgb(0, 0, 0);
+    background-color: rgb(180, 179, 179);
+    text-align: center;
+    font-style: bold;
+    box-shadow: 2px 3px;
+
+}
+
+body {
+    background-color: rgb(211, 211, 211);
+}
+
+h2 {
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+#inpName, #inpPassword, #btnLogin {
+    background-color: rgb(255, 255, 255);
+
+}
+
+#content {
+    text-align: center;
+}

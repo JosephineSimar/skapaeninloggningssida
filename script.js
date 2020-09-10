@@ -1,6 +1,7 @@
-const correctName = "test"; //konstanter för korrekt namn och lösen
+//globala konstanter och variabler
+const correctName = "test";
 const correctPassword = "1234";
-var content = document.getElementById("content");
+let content=document.getElementById("content");
 
 //Kallar på startfunktionerna i rätt ordning
 landingPage();
@@ -8,9 +9,10 @@ lsCheck();
 
 function landingPage() { //funktion som skapar startsida med inloggningsformulär
     content.innerHTML=""; //innehållet i diven "content" töms för att sedan fyllas på på nytt
-    var inpName = document.createElement("input"); //textfält och en knapp skapas
-    var inpPassword = document.createElement("input");
-    var btnLogin = document.createElement("button");
+    rubrik.innerText="Här kan du logga in:";
+    let inpName=document.createElement("input"); //textfält och en knapp skapas
+    let inpPassword=document.createElement("input");
+    let btnLogin=document.createElement("button");
     inpName.setAttribute("type", "text"); //inputfälten och knappen tilldelas attribut
     inpName.setAttribute("id", "inpName");
     inpName.setAttribute("placeholder", "Namn");
@@ -18,8 +20,8 @@ function landingPage() { //funktion som skapar startsida med inloggningsformulä
     inpPassword.setAttribute("id", "inpPassword");
     inpPassword.setAttribute("placeholder", "Lösenord");
     btnLogin.setAttribute("id", "btnLogin");
-    btnLogin.innerText = "Logga in";
-    btnLogin.onclick = () => login(); //vid klick på knappen kallas funktionen "login"
+    btnLogin.innerText="Logga in";
+    btnLogin.onclick= () => login(); //vid klick på knappen påkallas funktionen "login"
     content.appendChild(inpName);
     content.appendChild(inpPassword);
     content.appendChild(btnLogin);
@@ -31,44 +33,38 @@ function lsCheck() { //funktion som körs när startsidan laddar som kollar inlo
     }
 }
 
-function welcomePage() { //funktion som visar välkomstsidan
+function welcomePage() { //funktion som skapar välkomstsidan
     document.getElementById("content").innerHTML=""; //innehållet i diven "content" töms för att sedan fyllas på på nytt
-    var rubrik=document.createElement("h2");
-    var btnLogout=document.createElement("button"); //logga ut-knapp som leder tillbaka till startsidan
-    rubrik.setAttribute("id", "rubrik");
-    rubrik.innerText="Välkommen in!";
-    document.getElementById("content").appendChild(rubrik);
+    rubrik.innerText="Du är nu inloggad. Välkommen!";
+    let btnLogout=document.createElement("button"); //logga ut-knapp som leder tillbaka till startsidan
     btnLogout.innerText="Logga ut";
-    btnLogout.onclick = () => logout();
+    btnLogout.onclick= () => logout();
     content.appendChild(btnLogout);
 }
 
-function wrongPage() { //funktion som visar felinloggsidan
+function wrongPage() { //funktion som skapar felinloggsidan
     document.getElementById("content").innerHTML=""; //innehållet i diven "content" töms för att sedan fyllas på på nytt
-    var rubrik=document.createElement("h2");
-    var btnTryAgain=document.createElement("button");
-    rubrik.setAttribute("id", "rubrik");
     rubrik.innerText="Tyvärr skrev du in fel inloggningsuppgifter, försök gärna igen.";
-    document.getElementById("content").appendChild(rubrik);
-    btnTryAgain.innerHTML="Försök igen"; //knapp som leder tillbaka till startsidan så ett nytt inloggningsförsök kan göras
-    btnTryAgain.onclick = () => landingPage();
+    let btnTryAgain=document.createElement("button");
+    btnTryAgain.innerText="Försök igen"; //knapp som leder tillbaka till startsidan så ett nytt inloggningsförsök kan göras
+    btnTryAgain.onclick= () => landingPage();
     content.appendChild(btnTryAgain);
 }
 
-function login() { //funktion som testar namn+lösen
-    var inpName = document.getElementById("inpName").value;
-    var inpPassword = document.getElementById("inpPassword").value;
-    if (inpName===correctName && inpPassword===correctPassword){ //användaren skickas till välkomstsidan
-        localStorage.setItem("name", inpName); //inloggad användare sparas i localStorage (sparas bara om inlogget är rätt)
+function login() { //funktion som testar om namn och lösenord är korrekt
+    let inpName=document.getElementById("inpName").value;
+    let inpPassword=document.getElementById("inpPassword").value;
+    if (inpName===correctName && inpPassword===correctPassword){ // om namn och lösenord är korrekt skickas användaren till välkomstsidan genom funktionen welcomePage()
+        localStorage.setItem("name", inpName); //om inlogget är rätt sparas uppgifterna i localStorage
         localStorage.setItem("password", inpPassword);
         welcomePage();
     }
-    else { //användaren skickas till fel-inlogg-sidan
+    else { //användaren skickas till fel-inlogg-sidan genom funktionen wrongPage()
         wrongPage();
     }
 }
 
-function logout(){ //funktion som skickar tillbaka användaren till startsidan och rensar localstorage
+function logout(){ //funktion som rensar localStorage och skickar tillbaka användaren till startsidan genom funktionen landingPage()
     localStorage.clear();
     landingPage();
 }
